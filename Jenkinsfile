@@ -6,20 +6,21 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Building.."
                 sh '''
-                cd myapp
-                pip install -r requirements.txt
+                    cd myapp
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
                 '''
             }
         }
         stage('Test') {
             steps {
-                echo "Testing.."
                 sh '''
-                cd myapp
-                python3 hello.py
-                python3 hello.py --name=Brad
+                    cd myapp
+                    . venv/bin/activate
+                    # run your tests here, e.g.:
+                    python hello.py
                 '''
             }
         }
