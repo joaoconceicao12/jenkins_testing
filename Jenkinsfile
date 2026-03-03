@@ -1,9 +1,6 @@
 pipeline {
     agent {
-        docker { image 'python:3.11' }
-    }
-    triggers {
-        pollSCM '* * * * *'
+        label 'docker-agent-alpine'
     }
     stages {
         stage('Build') {
@@ -21,17 +18,14 @@ pipeline {
                 sh '''
                     cd myapp
                     . venv/bin/activate
-                    # run your tests here, e.g.:
+                    # Add your test commands here, e.g.:
                     python hello.py
                 '''
             }
         }
         stage('Deliver') {
             steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
+                echo 'Deliver stage (add your deployment steps)'
             }
         }
     }
